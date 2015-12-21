@@ -1,10 +1,11 @@
 {
 "debug": true,
-"testTrap": true,
+"testTrap": false,
+"listenerPort": 4567,
 "agents": [
 	{
-      "name" : "AHCTAgent",
-      "hostname": "HOPPTRPRD01",
+      "name" : "EMC_Agent",
+      "hostname": "192.168.10.2",
       "port": 162,
       "community_string": "emc-it"
     }

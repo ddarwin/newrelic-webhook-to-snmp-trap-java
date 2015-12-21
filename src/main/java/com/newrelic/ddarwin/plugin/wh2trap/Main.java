@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.apache.log4j.*;
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import com.typesafe.config.*;;
 
@@ -18,6 +19,7 @@ public class Main {
 
     	String name = null, host = null, community = null;
     	Integer port = null;
+    	Integer lPort = 4567;
     	
     	Logger logger = Logger.getLogger(Main.class.getClass());
 //        static final Logger logger = Logger.getLogger(HelloWorld.class);
@@ -29,26 +31,30 @@ public class Main {
 	    PropertyConfigurator.configure(path);
 		
 		if (conf.hasPath("debug")) {
-			logger.setLevel(Level.DEBUG);
-			isDebug = true;
-		} else {
-			isDebug = false;
+			if (conf.getBoolean("debug")) {
+				logger.setLevel(Level.DEBUG);
+				isDebug = true;
+			}
+		}
+		
+		if (conf.hasPath("listenerPort")) {
+			lPort = conf.getInt("listenerPort");
 		}
 		
 		if  (conf.hasPath("agents")) {
 
 			for (Config c : conf.getConfigList("agents")) {
-					logger.debug("Host is "+ c.getString("hostname"));
-					logger.debug("Name is "+ c.getString("name"));
-					logger.debug("Port is "+c.getInt("port"));
-					logger.debug("Community String is "+c.getString("community_string"));
+				logger.debug("Host is "+ c.getString("hostname"));
+				logger.debug("Name is "+ c.getString("name"));
+				logger.debug("Port is "+c.getInt("port"));
+				logger.debug("Community String is "+c.getString("community_string"));
 				
 			host = c.getString("hostname");
 			name = c.getString("name");
 			port = c.getInt("port");
 			community = c.getString("community_string");
 			
-	    	WebHookListener wh = new WebHookListener(isDebug, name, host, port, community);
+	    	WebHookListener wh = new WebHookListener(name, host, port, lPort, community);
 	    	wh.startWebHookListener();
 			}
 		} else {
@@ -56,7 +62,10 @@ public class Main {
 		}
 
 		if  (conf.hasPath("testTrap")) {
+			
+			// TODO Remove this string after testing
 			String trapString = "{\"owner\":\"Donald Darwin\",\"severity\":\"INFO\",\"current_state\":\"test\",\"policy_name\":\"New Relic Alert - Test Policy\",\"condition_id\":0,\"event_type\":\"NOTIFICATION\",\"incident_id\":0,\"account_name\":\"NewRelic Travel\",\"detail\":\"New Relic Alert - Channel Test\",\"condition_name\":\"New Relic Alert - Test Condition\",\"timestamp\":1450559269832}";
+
 			JSONObject jsonObj = null;
 			try {
 					jsonObj = (JSONObject) new JSONParser().parse(trapString);
@@ -64,7 +73,14 @@ public class Main {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Trap trap = new Trap(isDebug, host, port, community, jsonObj);
+
+			Trap trap = null;
+				try {
+					trap = new Trap(host, port, community, jsonObj);
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				trap.sendTrap();
 		}
     }
