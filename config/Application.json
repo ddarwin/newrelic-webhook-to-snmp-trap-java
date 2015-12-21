@@ -1,0 +1,12 @@
+{
+"debug": true,
+"testTrap": true,
+"agents": [
+	{
+      "name" : "AHCTAgent",
+      "hostname": "HOPPTRPRD01",
+      "port": 162,
+      "community_string": "emc-it"
+    }
+  ]
+}
