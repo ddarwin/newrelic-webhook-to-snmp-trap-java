@@ -22,7 +22,6 @@ public class Main {
     	Integer lPort = 4567;
     	
     	Logger logger = Logger.getLogger(Main.class.getClass());
-//        static final Logger logger = Logger.getLogger(HelloWorld.class);
         final String path = "config/log4j.properties";
  
     	Config conf = ConfigFactory.parseFile(new File("config/Application.json"));
@@ -49,13 +48,13 @@ public class Main {
 				logger.debug("Port is "+c.getInt("port"));
 				logger.debug("Community String is "+c.getString("community_string"));
 				
-			host = c.getString("hostname");
-			name = c.getString("name");
-			port = c.getInt("port");
-			community = c.getString("community_string");
-			
-	    	WebHookListener wh = new WebHookListener(name, host, port, lPort, community);
-	    	wh.startWebHookListener();
+				host = c.getString("hostname");
+				name = c.getString("name");
+				port = c.getInt("port");
+				community = c.getString("community_string");
+				
+		    	WebHookListener wh = new WebHookListener(name, host, port, lPort, community);
+		    	wh.startWebHookListener();
 			}
 		} else {
 			logger.debug("There was no valid agent configuration");
@@ -75,13 +74,14 @@ public class Main {
 				}
 
 			Trap trap = null;
-				try {
-					trap = new Trap(host, port, community, jsonObj);
-				} catch (UnknownHostException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				trap.sendTrap();
+			try {
+				trap = new Trap(host, port, community, jsonObj);
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			trap.sendTrap();
 		}
     }
 }

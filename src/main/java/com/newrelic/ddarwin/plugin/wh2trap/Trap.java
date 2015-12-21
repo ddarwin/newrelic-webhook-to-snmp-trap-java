@@ -37,7 +37,7 @@ private final Logger logger = Logger.getLogger(Trap.class.getClass());
 	public <JSONObj> Trap(String host, Integer port, String community, JSONObject json) throws UnknownHostException {
 		// TODO Auto-generated constructor stub
 
-		logger.debug("Created trap with debug ");	
+		logger.debug("Created trap.");	
 
 		this.host = host;
 		this.port = port;
