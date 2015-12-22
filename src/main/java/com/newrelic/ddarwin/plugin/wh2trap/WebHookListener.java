@@ -8,7 +8,7 @@ import org.json.simple.parser.JSONParser;;
 
 public class WebHookListener {
 
-	String name, host, community;
+	String name, host, community, alertMsg;
 	Integer port, lPort;
 	private JSONObject jsonObj;
 	private final Logger logger = Logger.getLogger(WebHookListener.class);
@@ -31,13 +31,36 @@ public class WebHookListener {
 		get("/hello/:name", (request, response) -> {
 			logger.debug("Processing simple Hello (GET) request");
 			return "Hello " + request.params(":name");
-		});		
+		});	
+		
+		get("/testTrap", (request, response) -> {
+
+			String trapString = "{\"owner\":\"Donald Darwin\","
+				+ "\"severity\":\"INFO\","
+				+ "\"current_state\":\"test\","
+				+ "\"policy_name\":\"New Relic Alert - Test Policy\","
+				+ "\"condition_id\":0,\"incident_url\":\"http://google.com\","
+				+ "\"event_type\":\"NOTIFICATION\","
+				+ "\"incident_id\":0,\"account_name\":\"NewRelic Travel\","
+				+ "\"details\":\"New Relic Alert - Channel Test\","
+				+ "\"condition_name\":\"New Relic Alert - Test Condition\","
+				+ "\"timestamp\":1450559269832}";
+			
+			jsonObj = (JSONObject) new JSONParser().parse(trapString);
+			
+			Trap trap = new Trap(this.host, this.port, this.community, this.jsonObj);
+			logger.debug("Trap send was "+trap.sendTrap());
+		
+			logger.debug("Processing simple Hello (GET) request");
+			return ("Test Trap generated");
+		});
 		
 		post("/webhook", (request, response) -> {
 			logger.debug("Processing WebHook Request");
-			logger.debug("Request body is "+request.body());
+			alertMsg = request.body();
+			logger.debug("Request body is "+alertMsg);
 			
-			jsonObj = (JSONObject) new JSONParser().parse(request.body());
+			jsonObj = (JSONObject) new JSONParser().parse(alertMsg);
 			
 			Trap trap = new Trap(this.host, this.port, this.community, this.jsonObj);
 			logger.debug("Trap send was "+trap.sendTrap());

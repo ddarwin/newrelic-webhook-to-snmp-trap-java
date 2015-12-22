@@ -83,12 +83,20 @@ private final Logger logger = Logger.getLogger(Trap.class);
 			  pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString("New_Relic")));
 			  pdu.add(new VariableBinding(SnmpConstants.sysContact, new OctetString((String) json.get("owner"))));
 			  pdu.add(new VariableBinding(SnmpConstants.sysLocation, new OctetString((String) json.get("condition_name"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("Notification Type: "+(String) json.get("current_state")+" "+
-					  "Notification Details: "+json.get("details")+" "+
-					  "Severity: "+json.get("severity")+" "+
-					  "Event Type: "+json.get("event_type")+" "+
-					  "Incident Link: "+json.get("incident_url"))));
-
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("current_state: "+(String) json.get("current_state"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("details: "+(String) json.get("details"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("severity: "+(String) json.get("severity"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("incident_api_url: "+(String) json.get("incident_api_url"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("incident_url: "+(String) json.get("incident_url"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("policy_url: "+(String) json.get("policy_url"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("runbook_url: "+(String) json.get("runbook_url"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("policy_name: "+(String) json.get("policy_name"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("condition_id: "+(String) json.get("condition_id").toString())));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("condition_name: "+(String) json.get("condition_name"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("event_type: "+(String) json.get("event_type"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("incident_id: "+(String) json.get("incident_id").toString())));			  
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("incident_url: "+(String) json.get("incident_url"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("timestamp: "+(String) json.get("timestamp").toString())));
 
 			  pdu.setType(PDU.TRAP);	
 			
@@ -101,7 +109,7 @@ private final Logger logger = Logger.getLogger(Trap.class);
 			 }
 			      catch (Exception e)
 			 {
-			   System.err.println("Error sending Trap to " + ipAddress + ":" + port);
+			   System.err.println("Error sending Trap to " + ipAddress + ":");
 			   System.err.println("Exception Message = " + e.getMessage());
  }
 	    
