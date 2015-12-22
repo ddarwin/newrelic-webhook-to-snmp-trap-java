@@ -25,16 +25,8 @@ public class Main {
         final String path = "config/log4j.properties";
  
     	Config conf = ConfigFactory.parseFile(new File("config/Application.json"));
-		Boolean isDebug = false;
 		
 	    PropertyConfigurator.configure(path);
-		
-		if (conf.hasPath("debug")) {
-			if (conf.getBoolean("debug")) {
-				logger.setLevel(Level.DEBUG);
-				isDebug = true;
-			}
-		}
 		
 		if (conf.hasPath("listenerPort")) {
 			lPort = conf.getInt("listenerPort");
@@ -70,7 +62,7 @@ public class Main {
 					+ "\"condition_id\":0,\"incident_url\":\"http://google.com\","
 					+ "\"event_type\":\"NOTIFICATION\","
 					+ "\"incident_id\":0,\"account_name\":\"NewRelic Travel\","
-					+ "\"detail\":\"New Relic Alert - Channel Test\","
+					+ "\"details\":\"New Relic Alert - Channel Test\","
 					+ "\"condition_name\":\"New Relic Alert - Test Condition\","
 					+ "\"timestamp\":1450559269832}";
 

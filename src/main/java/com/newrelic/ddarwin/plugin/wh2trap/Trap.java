@@ -46,20 +46,16 @@ private final Logger logger = Logger.getLogger(Trap.class);
 	}
 	
 	public String sendTrap () {
-	        
-	    @SuppressWarnings("rawtypes")
-		TransportMapping transport = null;
+
 
 		logger.debug("The JSON object is "+json.toJSONString());
 
 	      try
           {
 			   //Create Transport Mapping
-			  logger.debug("Owner is "+json.get("owner"));
-			  logger.debug("Event Type is "+json.get("event_type"));
-			  logger.debug("Current state is "+json.get("current_state"));
-			  logger.debug("The Alert details are: "+json.get("detail"));
-			  logger.debug("The host contains "+ipAddress.toString());
+		        
+		  	  @SuppressWarnings("rawtypes")
+		  	  TransportMapping transport = null;
 			
 			  //Create Target 
 			  logger.debug("Sending trap to " + ipAddress);
@@ -82,16 +78,16 @@ private final Logger logger = Logger.getLogger(Trap.class);
 				
 			  //Create PDU for V2 Trap
 			  PDU pdu = new PDU();
-			  pdu.add(new VariableBinding(SnmpConstants.snmpTrapEnterprise, new OID("1.3.6.1.4.1.1139")));
-
+			  pdu.add(new VariableBinding(SnmpConstants.snmpTrapEnterprise, new OID("1.3.6.1.2.1.16")));
+			  pdu.add(new VariableBinding(SnmpConstants.snmpTrapOID, new OID(".23")));
 			  pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString("New_Relic")));
 			  pdu.add(new VariableBinding(SnmpConstants.sysContact, new OctetString((String) json.get("owner"))));
 			  pdu.add(new VariableBinding(SnmpConstants.sysLocation, new OctetString((String) json.get("condition_name"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString((String) json.get("current_state")+" "+
-					  json.get("detail")+" "+
-					  json.get("severity")+" "+
-					  json.get("event_type")+" "+
-					  json.get("incident_url"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("Notification Type: "+(String) json.get("current_state")+" "+
+					  "Notification Details: "+json.get("details")+" "+
+					  "Severity: "+json.get("severity")+" "+
+					  "Event Type: "+json.get("event_type")+" "+
+					  "Incident Link: "+json.get("incident_url"))));
 
 
 			  pdu.setType(PDU.TRAP);	

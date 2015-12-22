@@ -1,11 +1,10 @@
 {
-"debug": true,
 "testTrap": true,
 "listenerPort": 4567,
 "agents": [
 	{
       "name" : "EMC_Agent",
-      "hostname": "192.168.10.2",
+      "hostname": "localhost",
       "port": 162,
       "community_string": "emc-it"
     }
