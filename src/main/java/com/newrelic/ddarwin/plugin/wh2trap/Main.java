@@ -21,7 +21,7 @@ public class Main {
     	Integer port = null;
     	Integer lPort = 4567;
     	
-    	Logger logger = Logger.getLogger(Main.class.getClass());
+    	Logger logger = Logger.getLogger(Main.class);
         final String path = "config/log4j.properties";
  
     	Config conf = ConfigFactory.parseFile(new File("config/Application.json"));
@@ -60,10 +60,19 @@ public class Main {
 			logger.debug("There was no valid agent configuration");
 		}
 
-		if  (conf.hasPath("testTrap")) {
+		if  (conf.hasPath("testTrap") && conf.getBoolean("testTrap")) {
 			
 			// TODO Remove this string after testing
-			String trapString = "{\"owner\":\"Donald Darwin\",\"severity\":\"INFO\",\"current_state\":\"test\",\"policy_name\":\"New Relic Alert - Test Policy\",\"condition_id\":0,\"event_type\":\"NOTIFICATION\",\"incident_id\":0,\"account_name\":\"NewRelic Travel\",\"detail\":\"New Relic Alert - Channel Test\",\"condition_name\":\"New Relic Alert - Test Condition\",\"timestamp\":1450559269832}";
+			String trapString = "{\"owner\":\"Donald Darwin\","
+					+ "\"severity\":\"INFO\","
+					+ "\"current_state\":\"test\","
+					+ "\"policy_name\":\"New Relic Alert - Test Policy\","
+					+ "\"condition_id\":0,\"incident_url\":\"http://google.com\","
+					+ "\"event_type\":\"NOTIFICATION\","
+					+ "\"incident_id\":0,\"account_name\":\"NewRelic Travel\","
+					+ "\"detail\":\"New Relic Alert - Channel Test\","
+					+ "\"condition_name\":\"New Relic Alert - Test Condition\","
+					+ "\"timestamp\":1450559269832}";
 
 			JSONObject jsonObj = null;
 			try {

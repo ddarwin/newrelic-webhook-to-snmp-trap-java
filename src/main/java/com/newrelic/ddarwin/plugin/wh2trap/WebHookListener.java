@@ -11,7 +11,7 @@ public class WebHookListener {
 	String name, host, community;
 	Integer port, lPort;
 	private JSONObject jsonObj;
-	private final Logger logger = Logger.getLogger(WebHookListener.class.getClass());
+	private final Logger logger = Logger.getLogger(WebHookListener.class);
 	
 	public WebHookListener(String name, String host, Integer port, Integer lPort, String community) {
 		// TODO Auto-generated constructor stub

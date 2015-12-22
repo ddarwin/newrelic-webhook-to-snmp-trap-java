@@ -31,8 +31,7 @@ String host, community_id;
 Integer port = null;
 JSONObject json;
 UdpAddress ipAddress;
-
-private final Logger logger = Logger.getLogger(Trap.class.getClass());
+private final Logger logger = Logger.getLogger(Trap.class);
 
 	public <JSONObj> Trap(String host, Integer port, String community, JSONObject json) throws UnknownHostException {
 		// TODO Auto-generated constructor stub
@@ -84,12 +83,17 @@ private final Logger logger = Logger.getLogger(Trap.class.getClass());
 			  //Create PDU for V2 Trap
 			  PDU pdu = new PDU();
 			  pdu.add(new VariableBinding(SnmpConstants.snmpTrapEnterprise, new OID("1.3.6.1.4.1.1139")));
-			  pdu.add(new VariableBinding(SnmpConstants.snmpTrapCommunity, new OctetString(community_id)));
+
 			  pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString("New_Relic")));
-			  pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString((String) json.get("event_type"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString((String) json.get("policy_name"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString((String) json.get("detail"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString((String) json.get("condition_name"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysContact, new OctetString((String) json.get("owner"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysLocation, new OctetString((String) json.get("condition_name"))));
+			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString((String) json.get("current_state")+" "+
+					  json.get("detail")+" "+
+					  json.get("severity")+" "+
+					  json.get("event_type")+" "+
+					  json.get("incident_url"))));
+
+
 			  pdu.setType(PDU.TRAP);	
 			
 			  //Send the PDU
