@@ -9,7 +9,7 @@ This extension provides a Webhook Alert notification endpoint that converts that
 
 ## Install the prerequisites
 
-This is a Maven package that can be downloaded and built using "mvn install". Or simply download the ZIP and use the executable JAR file and config/ directory. 
+This is a Maven package that can be downloaded and built using "mvn install". 
 This extension requires a Java 1.8 JRE because it uses Lambda expressions. 
 
 ## Install the plugin
