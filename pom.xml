@@ -20,8 +20,8 @@
   	<build>
 		<plugins>
 			<plugin>
-				<groupId>com.newrelic.ddarwin.plugin</groupId>
-				<artifactId>wh2trap</artifactId>
+				<groupId>com.newrelic.ddarwin.plugin.wh2trap</groupId>
+				<artifactId>webhook-snmptrap-server</artifactId>
 				<configuration>
 					<archive>
 						<manifest>
