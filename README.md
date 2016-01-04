@@ -14,12 +14,7 @@ This extension requires a Java 1.8 JRE because it uses Lambda expressions.
 
 ## Install the plugin
 
-1. [Download the plugin](https://github.com/ddarwin/newrelic-wh2trap-server/archive/master.zip)
-2. Unzip the plugin into a working directory. 
-   * **NOTE:** The zip contains a folder called `newrelic-wh2trap-server-master`.
-3. CD to the newrelic-wh2trap-server-master directory. 
-4. To build the Plug-in run 'mvn install'. This will create an executable JAR file, newrelic-wh2trap-server-0.0.1-SNAPSHOT.jar, in the target/ subdirectory. 
-5. Copy the JAR file and the config/ directory to the location where you want to run the extension. They JAR and the config/ directory should be at the same level.
+1. You can download the NRwh2Trap.jar file from the repository.
    
 ## Edit the configuration and run the executable JAR. 
 
@@ -29,6 +24,6 @@ This extension requires a Java 1.8 JRE because it uses Lambda expressions.
   - The Agent name is arbitrary.
   - You can specify multiple Agents for multiple Trap receivers. 
 2. Edit the log4j.properties file to change the logging level or destination. Used logging levels are INFO (default), DEBUG. 
-3. The Agent is an executable JAR file. Run with the command: 'java -jar newrelic-wh2trap-server-0.0.1-SNAPSHOT.jar'. Be sure you are pointing to a Java 1.8 or higher JRE/JDK. 
+3. The Agent is an executable JAR file. Run with the command: 'java -jar NRwh2Trap.jar'. Be sure you are pointing to a Java 1.8 or higher JRE/JDK. 
 
   

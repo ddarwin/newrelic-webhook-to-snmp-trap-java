@@ -2,10 +2,10 @@
 "listenerPort": 4567,
 "agents": [
 	{
-      "name" : "EMC_Agent",
+      "name" : "Example_Agent",
       "hostname": "localhost",
       "port": 162,
-      "community_string": "emc-it"
+      "community_string": "your_community_string"
     }
   ]
 }

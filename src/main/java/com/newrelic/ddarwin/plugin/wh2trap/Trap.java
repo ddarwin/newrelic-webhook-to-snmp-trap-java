@@ -54,7 +54,6 @@ private final Logger logger = Logger.getLogger(Trap.class);
           {
 			   //Create Transport Mapping
 		        
-		  	  @SuppressWarnings("rawtypes")
 		  	  TransportMapping transport = null;
 			
 			  //Create Target 
