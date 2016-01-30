@@ -31,6 +31,9 @@ String host, community_id;
 Integer port = null;
 JSONObject json;
 UdpAddress ipAddress;
+
+String kSnmpTrapOid = "1.3.6.1.4.1.16";
+
 private final Logger logger = Logger.getLogger(Trap.class);
 
 	public <JSONObj> Trap(String host, Integer port, String community, JSONObject json) throws UnknownHostException {
@@ -77,25 +80,25 @@ private final Logger logger = Logger.getLogger(Trap.class);
 				
 			  //Create PDU for V2 Trap
 			  PDU pdu = new PDU();
-			  pdu.add(new VariableBinding(SnmpConstants.snmpTrapEnterprise, new OID("1.3.6.1.2.1.16")));
-			  pdu.add(new VariableBinding(SnmpConstants.snmpTrapOID, new OID(".23")));
-			  pdu.add(new VariableBinding(SnmpConstants.sysName, new OctetString("New_Relic")));
-			  pdu.add(new VariableBinding(SnmpConstants.sysContact, new OctetString((String) json.get("owner"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysLocation, new OctetString((String) json.get("condition_name"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("current_state: "+(String) json.get("current_state"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("details: "+(String) json.get("details"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("severity: "+(String) json.get("severity"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("incident_api_url: "+(String) json.get("incident_api_url"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("incident_url: "+(String) json.get("incident_url"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("policy_url: "+(String) json.get("policy_url"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("runbook_url: "+(String) json.get("runbook_url"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("policy_name: "+(String) json.get("policy_name"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("condition_id: "+(String) json.get("condition_id").toString())));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("condition_name: "+(String) json.get("condition_name"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("event_type: "+(String) json.get("event_type"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("incident_id: "+(String) json.get("incident_id").toString())));			  
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("incident_url: "+(String) json.get("incident_url"))));
-			  pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("timestamp: "+(String) json.get("timestamp").toString())));
+			  pdu.add(new VariableBinding(SnmpConstants.snmpTrapEnterprise, new OID(kSnmpTrapOid)));
+			  pdu.add(new VariableBinding(SnmpConstants.snmpTrapOID, new OID(kSnmpTrapOid+".60")));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".1"), new OctetString("Agent: "+"New_Relic")));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".2"), new OctetString("Owner: "+(String) json.get("owner"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".3"), new OctetString("Condition Name: "+(String) json.get("condition_name"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".4"), new OctetString("current_state: "+(String) json.get("current_state"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".5"), new OctetString("details: "+(String) json.get("details"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".6"), new OctetString("severity: "+(String) json.get("severity"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".7"), new OctetString("incident_api_url: "+(String) json.get("incident_api_url"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".8"), new OctetString("incident_url: "+(String) json.get("incident_url"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".9"), new OctetString("policy_url: "+(String) json.get("policy_url"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".10"), new OctetString("runbook_url: "+(String) json.get("runbook_url"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".11"), new OctetString("policy_name: "+(String) json.get("policy_name"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".12"), new OctetString("condition_id: "+(String) json.get("condition_id").toString())));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".13"), new OctetString("condition_name: "+(String) json.get("condition_name"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".14"), new OctetString("event_type: "+(String) json.get("event_type"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".15"), new OctetString("incident_id: "+(String) json.get("incident_id").toString())));			  
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".16"), new OctetString("incident_url: "+(String) json.get("incident_url"))));
+			  pdu.add(new VariableBinding(new OID(kSnmpTrapOid+".17"), new OctetString("timestamp: "+(String) json.get("timestamp").toString())));
 
 			  pdu.setType(PDU.TRAP);	
 			
