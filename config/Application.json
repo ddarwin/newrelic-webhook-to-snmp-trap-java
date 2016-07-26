@@ -1,5 +1,6 @@
 {
 "listenerPort": 4567,
+"debug": true,
 "agents": [
 	{
       "name" : "Example_Agent",
