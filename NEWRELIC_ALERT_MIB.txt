@@ -1,0 +1,232 @@
+NEWRELIC-ALERT-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+	enterprises,
+	MODULE-IDENTITY,
+	OBJECT-TYPE,
+	NOTIFICATION-TYPE
+		FROM SNMPv2-SMI
+	NOTIFICATION-GROUP
+		FROM SNMPv2-CONF;
+
+newrelicRegMIB MODULE-IDENTITY
+	LAST-UPDATED "201607201742Z"	-- Jul 20, 2016 5:42:00 PM
+	ORGANIZATION "New Relic, Inc."
+	CONTACT-INFO
+		"Don Darwin
+		ddarwin@newrelic.com"
+	DESCRIPTION
+		"New Relic, Inc"
+	REVISION "201607201742Z"	-- Jul 20, 2016 5:42:00 PM
+	DESCRIPTION
+		"Initial version."
+	-- 1.3.6.1.4.1.16
+::= { enterprises 16 }
+
+
+newrelicAgent OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"This identifies a New Relic Alert"
+	-- 1.3.6.1.4.1.16.1
+::= { newrelicRegMIB 1 }
+
+
+newrelicOwner OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The New Relic Alert Owner"
+	-- 1.3.6.1.4.1.16.2
+::= { newrelicRegMIB 2 }
+
+
+newrelicCondName OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The New Relic Alert Condition that triggered the alert"
+	-- 1.3.6.1.4.1.16.3
+::= { newrelicRegMIB 3 }
+
+
+newrelicAlertState OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The Initial State of the New Relic condition"
+	-- 1.3.6.1.4.1.16.4
+::= { newrelicRegMIB 4 }
+
+
+newrelicDetails OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The Alert Details"
+	-- 1.3.6.1.4.1.16.5
+::= { newrelicRegMIB 5 }
+
+
+newrelicSeverity OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The triggering Alert Severity level"
+	-- 1.3.6.1.4.1.16.6
+::= { newrelicRegMIB 6 }
+
+
+newrelicAPIUrl OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The HTTP link to the New Relic API for this Alert"
+	-- 1.3.6.1.4.1.16.7
+::= { newrelicRegMIB 7 }
+
+
+newrelicIncidentUrl OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"An HTTP Link to the New Relic Alert"
+	-- 1.3.6.1.4.1.16.8
+::= { newrelicRegMIB 8 }
+
+
+newrelicPolicyUrl OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The HTTP URL to the Policy definition in New Relic"
+	-- 1.3.6.1.4.1.16.9
+::= { newrelicRegMIB 9 }
+
+
+newrelicRunbookUrl OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The Runbook Link URL for this condition"
+	-- 1.3.6.1.4.1.16.10
+::= { newrelicRegMIB 10 }
+
+
+newrelicPolicyName OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The New Relic Policy name where this condition is defined"
+	-- 1.3.6.1.4.1.16.11
+::= { newrelicRegMIB 11 }
+
+
+newrelicConditionID OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The New Relic Condition identifier for this Alert"
+	-- 1.3.6.1.4.1.16.12
+::= { newrelicRegMIB 12 }
+
+
+newrelicConditionName OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The New Relic condition name that triggered this alert"
+	-- 1.3.6.1.4.1.16.13
+::= { newrelicRegMIB 13 }
+
+
+newrelicEventType OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The New Relic defined Event Type for the Alert"
+	-- 1.3.6.1.4.1.16.14
+::= { newrelicRegMIB 14 }
+
+
+newrelicIncidentID OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The New Relic Incident Identifier for this Alert"
+	-- 1.3.6.1.4.1.16.15
+::= { newrelicRegMIB 15 }
+
+
+newrelicIncidentURL OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The HTTP Url to New Relic Incident for this Alert"
+	-- 1.3.6.1.4.1.16.16
+::= { newrelicRegMIB 16 }
+
+
+newrelicAlertTimestamp OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"The New Relic timestamp for the Alert incident"
+	-- 1.3.6.1.4.1.16.17
+::= { newrelicRegMIB 17 }
+
+
+
+newrelicAlertNotification NOTIFICATION-TYPE
+	OBJECTS {
+		newrelicAgent,
+		newrelicOwner,
+		newrelicCondName,
+		newrelicAlertState,
+		newrelicDetails,
+		newrelicSeverity,
+		newrelicAPIUrl,
+		newrelicIncidentUrl,
+		newrelicPolicyUrl,
+		newrelicRunbookUrl,
+		newrelicPolicyName,
+		newrelicConditionID,
+		newrelicConditionName,
+		newrelicEventType,
+		newrelicIncidentID,
+		newrelicIncidentURL,
+		newrelicAlertTimestamp}
+	STATUS  current
+	DESCRIPTION
+		"This defines the SNMP v2 Trap that New Relic webhook processor sends."
+	-- 1.3.6.1.4.1.16.18
+	::= { newrelicRegMIB 18 }
+
+newrelicAlertGroup NOTIFICATION-GROUP
+	NOTIFICATIONS {
+		newrelicAlertNotification }
+	STATUS  current
+	DESCRIPTION
+		"This Group includes any notifications that New Relic webhook processor will send."
+	-- 1.3.6.1.4.1.16.19
+	::= { newrelicRegMIB 19 }
+
+END
