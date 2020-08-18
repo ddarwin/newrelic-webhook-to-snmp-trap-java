@@ -44,6 +44,8 @@ If these tests fail then either the webhook listener process is not reachable or
 
 Create a [New Relic WebHook Alert Notification Channel](https://docs.newrelic.com/docs/alerts-applied-intelligence/new-relic-alerts/alert-notifications/notification-channels-control-where-send-alerts) to receive Alert notifications to the NRwh2Trap service. The "base Url" value for the WebHook channel should be of the form, http://\<webhook-listener-host\>:\<webhook-listener-port\>/webhook.
 
+![New Relic WebHook Notification Channel definition](assets/images/webhook_notification_channel.jpg)
+
 
 
 
