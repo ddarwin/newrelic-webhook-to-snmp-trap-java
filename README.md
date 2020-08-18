@@ -26,4 +26,28 @@ This extension requires a Java 1.8 JRE because it uses Lambda expressions.
 2. Edit the log4j.properties file to change the logging level or destination. Used logging levels are INFO (default), DEBUG. 
 3. The Agent is an executable JAR file. Run with the command: 'java -jar NRwh2Trap.jar'. Be sure you are pointing to a Java 1.8 or higher JRE/JDK. 
 
+## Test access to the WebHook Listener from the Web
+
+The New Relic WebHook listener must be accessible from the Internet to receive Alerts from New Relic. You can test access using a browser:
+
+- HelloWorld test: from a browser enter the URL, http://\<webhook-listener-host\>:\<webhook-listener-port\>/hello/world
+      This should return the message "Hello World"
+
+- Test Trap: from a browser enter the URL, http://\<webhook-listener-host\>:\<webhook-listener-port\>/testTrap
+      This should return the message "Test Trap Generated"
+   
+If these tests fail then either the webhook listener process is not reachable or the NRwh2Trap process is not running, or both. To resolve: 
+   - Ensure the process is started by running the process, java -jar NRwh2Trap.jar.
+   - Make sure your WebHook listener host:port are public and can be reached from the New Relic Cloud Service. 
+   
+## Create a New Relic notification channel 
+
+Create a [New Relic WebHook Alert Notification Channel](https://docs.newrelic.com/docs/alerts-applied-intelligence/new-relic-alerts/alert-notifications/notification-channels-control-where-send-alerts) to receive Alert notifications to the NRwh2Trap service. The "base Url" value for the WebHook channel should be of the form, http://\<webhook-listener-host\>:\<webhook-listener-port\>/webhook.
+
+
+
+
+
+
+
   
