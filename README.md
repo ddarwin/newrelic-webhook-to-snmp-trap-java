@@ -19,7 +19,7 @@ This extension requires a Java 1.8 JRE because it uses Lambda expressions.
 ## Edit the configuration and run the executable JAR. 
 
 1. Edit the config/Application.json to configure the Agent to connect to an SNMP Manager.
-  - Modify the 'listenerPort' setting to change the port the Webhook listens on. Default is 4567.
+  - Modify the 'listenerPort' setting to change the port the Webhook listens on. If not set, the Spark Jetty Server defaults to port 4567.
   - Modify the agent stanza to change the SNMP Trap host, port, and community_string for the SNMP Trap destination. 
   - The Agent name is arbitrary.
   - You can specify multiple Agents for multiple Trap receivers. 
