@@ -4,10 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.text.ParseException;
 import java.util.*;
-import org.json.*;
+import org.json.simple.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.apache.log4j.*;
+import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
@@ -19,17 +20,17 @@ public class Main {
 
     	String name = null, host = null, community = null;
     	Integer port = null;
-    	Integer lPort = 4567;
+    	Integer lPort = 4500;
     	
     	Logger logger = Logger.getLogger(Main.class);
-        final String path = "config/log4j.properties";
+		final String path = "config/log4j.properties";
+		PropertyConfigurator.configure(path);
  
-    	Config conf = ConfigFactory.parseFile(new File("config/Application.json"));
-		
-	    PropertyConfigurator.configure(path);
+		Config conf = ConfigFactory.parseFile(new File("config/Application.json"));
 		
 		if (conf.hasPath("listenerPort")) {
 			lPort = conf.getInt("listenerPort");
+			logger.debug("Logger port being set to "+ lPort);
 		}
 		
 		if  (conf.hasPath("agents")) {

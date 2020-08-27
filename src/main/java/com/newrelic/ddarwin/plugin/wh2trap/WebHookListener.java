@@ -4,7 +4,7 @@ import static spark.Spark.*;
 
 import org.apache.log4j.Logger;
 import org.json.simple.*;
-import org.json.simple.parser.JSONParser;;
+import org.json.simple.parser.JSONParser;
 
 public class WebHookListener {
 
@@ -27,6 +27,7 @@ public class WebHookListener {
 		public void startWebHookListener () {
 			
 		logger.info("The WebHook Listener is starting with port "+lPort);
+		port(lPort);
 
 		get("/hello/:name", (request, response) -> {
 			logger.debug("Processing simple Hello (GET) request");
